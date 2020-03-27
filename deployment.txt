@@ -1,0 +1,52 @@
+LARAVEL DEPLOYMENT ON DIGITAL OCEAN
+
+https://www.youtube.com/watch?v=T0axT6SJzbk&t=2s
+
+https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04
+
+** ENABLING EXTERNAL ACCESS FOR YOUR REGULAR USER
+
+rsync --archive --chown=jmac:jmac ~/.ssh /home/jmac
+
+ssh -i ~/.ssh/id_rsa jmac@159.203.16.192
+
+** INSTALLING PHP 
+
+sudo add-apt-repository ppa:ondrej/php (*disregard the errors in the video and proceed)
+
+sudo apt-get install -y php7.4-cli php7.4-fpm php7.4-mbstring php7.4-mysql php7.4-curl php7.1-mcrypt php-xml
+
+** INSTALLING MySQL
+Follow this guide to ensure proper installation - video doesn't work
+https://www.digitalocean.com/community/tutorials/how-to-install-mysql-on-ubuntu-18-04
+
+COMPOSER INSTALL ERROR
+sudo apt install php-xml
+^this fixed it - added php-xml to php install list
+
+composer install
+
+see working example of nginx config - review carefully and adopt
+
+sudo vim /etc/nginx/sites-available/default
+
+see working example of .env - review carefully and adopt
+
+sudo /var/www/html/.env
+
+******************************* File Storage
+the public disk uses the local driver and stores these files in storage/app/public. To make them accessible from the web, you should create a symbolic link from public/storage to storage/app/public
+To create the symbolic link, you may use the storage:link Artisan command:
+
+cd /var/www/html
+php artisan storage:link
+
+cd /var/www/html
+
+git pull after making changes in development environment
+
+https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars
+
+https://www.digitalocean.com/docs/networking/dns/how-to/manage-records/
+
+https://www.digitalocean.com/community/tutorials/how-to-use-filezilla-to-transfer-and-manage-files-securely-on-your-vps
